@@ -14,7 +14,7 @@ function errorHandler(err, req, res, next) {
         message = "Category already created";
     } else if (err.name === "UserAlreadyCreated") {
         code = 400;
-        message = "User already created";
+        message = "Email already registered";
     } else if (err.name === "Unauthorized" || err.message === "jwt must be provided") {
         code = 401;
         message = "Unauthorized";

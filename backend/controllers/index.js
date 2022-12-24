@@ -9,6 +9,8 @@ class Controllers {
     // USERS
     static register(req, res, next) {
         const { email, password } = req.body;
+        const initialCategories = ["Work", "Groceries", "Study", "Sports"]
+
         User.findByEmail(email)
             .then((user) => {
                 if (user) {
@@ -18,6 +20,9 @@ class Controllers {
                 }
             })
             .then((user) => {
+                initialCategories.forEach(category => {
+                    Category.create({name: category, userId: user.insertedId})
+                })
                 res.status(201).json({ message: "User created!" });
             })
             .catch((err) => {
@@ -54,9 +59,12 @@ class Controllers {
                 if (todo) {
                     throw { name: "AlreadyCreated" };
                 } else {
-                    return Todo.create({ task, categoryId, userId: req.user.id });
+                    return Category.findById(categoryId)
                 }
 
+            })
+            .then((category) => {
+                return Todo.create({ task, categoryId, categoryName: category.name, userId: req.user.id });
             })
             .then((todo) => {
                 res.status(201).json({ message: "Todo created!" });
