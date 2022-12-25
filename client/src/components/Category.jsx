@@ -1,10 +1,10 @@
 import {useState} from "react";
-import {toast, Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import {useDispatch} from "react-redux";
-import {categoriesFetch, categoryDelete} from "../store/actions/categoryAction.jsx";
+import {categoryDelete} from "../store/actions/categoryAction.jsx";
 
 export default function Category(props) {
-    const {category} = props
+    const {category, handleTodoByCategory} = props
     const dispatch = useDispatch()
     const [isFocus, setIsFocus] = useState(false)
     const [isConfirm, setIsConfirm] = useState(false)
@@ -23,16 +23,20 @@ export default function Category(props) {
         dispatch(categoryDelete(categoryId))
             .then((_) => {
                 toast.success("Category " + category.name + " has been deleted")
+                window.location.reload()
                 closeConfirm()
             })
             .catch((err) => {
-                toast.error(err.response.data.message)
+                console.log(err)
             })
+    }
+    const localHandleTodoByCategory = () => {
+        handleTodoByCategory(category._id)
     }
     return (
         <>
             <li className={"grid grid-cols-2 p-1"}>
-                <button onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} className={"focus:bg-sky-400 focus:text-white hover:bg-sky-300 hover:text-white rounded-xl p-2"}>{category.name}</button>
+                <button onClick={() => localHandleTodoByCategory()} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} className={"focus:bg-sky-400 focus:text-white hover:bg-sky-300 hover:text-white rounded-xl p-2"}>{category.name}</button>
                 {isFocus ? <button><i onMouseDown={() => handleConfirm(category._id)} className="fa-duotone fa-trash text-red-600"></i></button> : null}
             </li>
             <div onClick={() => closeConfirm()} className={isConfirm ? "fixed w-screen h-screen inset-0 backdrop-blur-sm z-10" : "hidden"}>
@@ -44,7 +48,6 @@ export default function Category(props) {
                     </div>
                 </div>
             </div>
-            <Toaster/>
         </>
     )
 }

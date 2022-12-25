@@ -5,6 +5,7 @@ const {todoAuthz, categoryAuthz} = require("../middlewares/authz");
 
 // USERS
 routes.post("/register", Controllers.register);
+routes.post("/verify/:token", Controllers.verifyAccount);
 routes.post("/login", Controllers.login);
 
 routes.use(auth)

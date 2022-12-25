@@ -8,9 +8,9 @@ const initialState = {
 const todoReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_TODOS:
-            return { ...state, todos: action.todos }
+            return { ...state, todos: action.payload }
         case FETCH_TODO_BY_CATEGORY:
-            return { ...state, todoByCategory: action.todoByCategory }
+            return { ...state, todoByCategory: action.payload }
         default:
             return state
     }

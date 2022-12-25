@@ -11,6 +11,8 @@ class User {
         return this.user().insertOne({
             email: payload.email,
             password: hashSync(payload.password, 10),
+            token: payload.token,
+            verified: payload.verified
         });
     }
 
@@ -21,6 +23,18 @@ class User {
     static findById(id) {
         return this.user().findOne({_id: ObjectId(id)}, {
             projection: {password: 0}
+        });
+    }
+
+    static findByToken(token) {
+        return this.user().findOne({token: token});
+    }
+
+    static update(payload) {
+        return this.user().updateOne({_id: ObjectId(payload.id)}, {
+            $set: {
+                verified: payload.verified
+            }
         });
     }
 

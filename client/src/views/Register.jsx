@@ -23,7 +23,9 @@ export default function Register() {
         } else {
             setIsValid(true)
             dispatch(register({email: emailRef.current.value, password: passwordRef.current.value}))
-                .then((_) => navigate("/login"))
+                .then((_) => {
+                    navigate("/check")
+                })
                 .catch((error) => {
                     const message = JSON.parse(error.message).message
                     toast.error(message)

@@ -37,10 +37,10 @@ export default function Login() {
                     <h1 className={"text-3xl"}>Hi, Welcome Back!</h1>
                     <form onSubmit={handleSubmit} className={"space-y-2 flex flex-col justify-center items-center"}>
                         <div>
-                            <input ref={emailRef} onFocus={() => setIsValid(true)} type="email" placeholder={"test@mail.com"} className={isValid ? validInput : invalidInput}/>
+                            <input ref={emailRef} onFocus={() => setIsValid(true)} type="email" placeholder={"your@email.com"} className={isValid ? validInput : invalidInput}/>
                         </div>
                         <div>
-                            <input ref={passwordRef} onFocus={() => setIsValid(true)} type="password" placeholder={"123456"} className={isValid ? validInput : invalidInput}/>
+                            <input ref={passwordRef} onFocus={() => setIsValid(true)} type="password" placeholder={"******"} className={isValid ? validInput : invalidInput}/>
                         </div>
                         <div>
                             <button className={"rounded-xl h-full p-3 px-5 w-80 bg-sky-500 text-white hover:drop-shadow-2xl hover:bg-sky-600"}>Login</button>

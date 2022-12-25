@@ -24,6 +24,9 @@ function errorHandler(err, req, res, next) {
     } else if (err.name === "Forbidden") {
         code = 403;
         message = "Forbidden";
+    } else if (err.name === "NotVerified") {
+        code = 401;
+        message = "Please verify your email first";
     }
 
     res.status(code).json({ message });
